@@ -1,0 +1,177 @@
+select * from users
+
+select * from score
+order by user_score desc
+
+select * from images
+select * from reports
+
+delete from images
+where image_id in ('1.png', '2.png')
+
+delete from users
+where username = 'hoopma'
+
+delete from score
+where username = 'hoopma'
+
+delete from users;
+delete from score;
+delete from blocks;
+delete from images;
+delete from reports;
+
+insert into images values (662922723, 'ДДД.png');
+insert into images values(662922723, 'ЫЫЫ.png');
+insert into images values(1, '3.png');
+insert into images values(1, '1.png');
+insert into images values(1, '2.png');
+insert into images values(2, '6.png');
+insert into images values(2, '4.png');
+insert into images values(2, '5.png');
+
+select num, user_score
+from 
+	(select row_number() over w as num,
+		   user_id,
+		   user_score
+	from score 
+	window w as (order by user_score desc)) as f
+where user_id = 662922723
+
+
+select row_number() over w as num,
+		   user_id,
+		   user_score
+	from score 
+	window w as (order by user_score desc)
+	
+select user_id
+from 
+	(select row_number() over w as num,
+			user_id,
+			user_score
+	 from score 
+	 window w as (order by user_score desc)) as f
+where num = 1
+
+
+
+update images
+set count_report = count_report + 1
+where user_id = 662922723 and
+	  image_id = 'AgACAgIAAxkBAAIRMGN0nk0_OIP2_p5yJkkN4ObXBpL5AAIHwjEbnlSpS9hTB56QVTeeAQADAgADeQADKwQ.jpg'
+
+
+select user_id
+from images
+where image_id = 'AgACAgIAAxkBAAIUF2N1KieqBFv_FatEDA9qbbhv02ImAAJ1wTEbVLWpS-BfXswsKsUmAQADAgADeQADKwQ.jpg'
+
+select user_id
+from images
+where image_id = 'AgACAgIAAxkBAAIaR2N3q3n0UCAAAVwiWdCytuRJZCkxSQACv8ExG84pwEv92xgC1545EgEAAwIAA3kAAysE.jpg'
+union
+select user_id
+from images
+where image_id = 'AgACAgIAAxkBAAIaPGN3qw1t8WSvb56Sjen9PCLKrn8CAALGvzEbCOa5SwjfhehMr9pUAQADAgADeQADKwQ.jpg'
+
+select user_id
+from images
+where image_id in ('AgACAgIAAxkBAAIaR2N3q3n0UCAAAVwiWdCytuRJZCkxSQACv8ExG84pwEv92xgC1545EgEAAwIAA3kAAysE.jpg',
+				  'AgACAgIAAxkBAAIaPGN3qw1t8WSvb56Sjen9PCLKrn8CAALGvzEbCOa5SwjfhehMr9pUAQADAgADeQADKwQ.jpg')
+
+
+insert into reports (sender_report_id, image_id) values (1, 1), (2, 2)
+select * from reports
+
+
+update images
+set count_report = count_report + 1
+where user_id in (190325725, 662922723) and
+	  image_id in ('AgACAgIAAxkBAAIgWWN5QMCxPHDgjrHvvm3QXpBgW_lfAALvxDEbs6rJS8bv0qak2ESpAQADAgADeQADKwQ.jpg',
+				  'AgACAgIAAxkBAAIgamN5QiRwHopDUEWSjEkimod0gwqyAAKbxDEb3h3JSw93_tBvezQAAQEAAwIAA3kAAysE.jpg')
+
+select * from images
+
+union
+update images
+set count_report = count_report + 1
+where user_id = 662922723
+
+delete from images
+where image_id in (select image_id
+from images
+where count_report >=3)
+
+select user_id
+from users
+where count_reported_images >= 10 and
+      count_reported_images < 12
+
+
+update users
+set count_reported_images = count_reported_images + 3
+where user_id = 6
+
+update users
+set count_reported_images = 20
+where user_id = 662922723
+
+select * from users
+
+insert into users values(4, 'test', 'test', 'test', 10);
+insert into users values(5, 'test', 'test', 'test', 11);
+insert into users values(6, 'test', 'test', 'test', 12);
+insert into users values(7, 'test', 'test', 'test', 13);
+
+
+select user_id, first_unblock_date
+from blocks
+where first_unblock_date != '0' and
+	  second_ban = '0'
+
+select * from blocks
+delete from blocks;
+delete from users;
+
+insert into blocks
+	values (662922723, '22-22-22', 'True')
+insert into blocks
+	values (662922723)
+	
+update blocks
+set second_ban = '0'
+where user_id = 1
+
+update blocks
+set first_unblock_date = '2022-11-24'
+where first_unblock_date = '2022-11-30'
+
+update users
+set count_reported_images = 10
+where user_id = 1
+
+
+update blocks
+set first_unblock_date = '9999-99-99', second_ban = 'True'
+where user_id = '662922723'
+
+
+select user_id, first_unblock_date
+from blocks
+where first_unblock_date like '%-%'
+
+select * from blocks
+select * from users
+
+
+
+
+
+
+
+
+
+
+
+
